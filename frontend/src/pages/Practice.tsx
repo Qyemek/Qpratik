@@ -1,0 +1,1 @@
+export default function Practice() { return <div className='card'><h1 className='text-2xl font-bold'>Practice</h1><p className='text-gray-600 mt-2'>Find practice partners for text or video chat</p></div>; }

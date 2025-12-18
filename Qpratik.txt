@@ -1,0 +1,29 @@
+pratik isimli uygulamayı doğrudan canlıya alınacak, tam fonksiyonel, eksiksiz çalışan, üretim (production) kalitesinde bir web uygulaması olarak geliştir. Bu bir demo, taslak, konsept veya planlama çalışması değildir. Çıktın; bir geliştiricinin bilgisayarında çalıştırdığında hatasız açılan, tek komutla prod ortama deploy edilebilen ve Median.co kullanılarak Android (Google Play) ve iOS (App Store) uygulamasına dönüştürülebilen gerçek bir üründür.
+
+Bu istekte kesinlikle yapılmaması gerekenler: yapılacaklar listesi, roadmap, aşama, checklist, “sonra eklenebilir” ifadesi, dummy/placeholder butonlar, çalışmayan akışlar, sadece açıklama metni üretmek. Sadece çalışan, canlıya hazır kod üret.
+
+Uygulamanın adı Qpratik olacak. Uygulama Türkçe ve İngilizce dillerini eksiksiz destekleyecek; tüm arayüz metinleri i18n ile yönetilecek. Light ve Dark tema olacak. Tasarım modern, sade, mobil öncelikli ve performans odaklı olacak.
+
+Teknik olarak frontend React + TypeScript + Tailwind kullanılarak, backend Node.js (tercihen NestJS) + TypeScript ile geliştirilecek. Kimlik doğrulama JWT + refresh token mantığıyla yapılacak, httpOnly cookie kullanılacak. Veritabanı PostgreSQL olacak, Prisma ORM kullanılacak. Gerçek zamanlı özellikler WebSocket (Socket.IO) ile, görüntülü görüşme WebRTC ile çalışacak. Redis online durum, eşleşme ve rate limit için kullanılacak. Tüm sistem Docker ile ayağa kalkacak, Nginx reverse proxy ve SSL yapılandırması hazır olacak.
+
+Kullanıcı e-posta/şifre veya Google ile kayıt olabilir. Kayıt sırasında KVKK ve Kullanım Şartları onayı zorunludur. E-posta doğrulama ve şifre sıfırlama çalışır durumda olacak. Her kullanıcının profil fotoğrafı, benzersiz kullanıcı adı, seviyesi (A1–C2), XP ilerleme çubuğu, kazandığı rozetler, pratik ve test istatistikleri, arkadaş listesi ve dakika/kredi bakiyesi bulunacak.
+
+Uygulamada seviye bazlı İngilizce eğitim içerikleri olacak. Grammar, vocabulary ve günlük ifadeler gerçek içeriklerle sunulacak. Kullanıcı içerikleri tamamladıkça ilerleme kaydı tutulacak ve XP kazanacak. Seviye bazlı test sistemi olacak; çoktan seçmeli, boşluk doldurma ve dinleme soruları gerçek değerlendirme yapacak. Test sonucu kullanıcı seviyesini ve XP’sini güncelleyecek. Başarılı seviyeler için PDF sertifika üretilecek.
+
+Pratik modülü eksiksiz çalışacak. Random yazılı sohbet seviye uyumuna göre gerçek zamanlı eşleşecek, mesajlaşma anlık olacak, küfür/spam filtresi, raporlama ve engelleme sistemi aktif olacak. Görüntülü sohbet WebRTC ile çalışacak; FaceTime benzeri arayüz olacak, karşı taraf büyük, kullanıcının kendi görüntüsü küçük pencerede altta yer alacak. Kamera ve mikrofon açma/kapama, bağlantı kopma toleransı, süre yönetimi ve çıkış akışları sorunsuz çalışacak.
+
+Arkadaşlık sistemi tam çalışır olacak. Kullanıcılar birbirini arayıp ekleyebilecek, arkadaş listesini görebilecek, arkadaşlarıyla özel sohbet yapabilecek ve pratik teklifi gönderebilecek. Teklif kabul/red süreci bildirimle çalışacak.
+
+Seviye, XP, rozet ve günlük streak sistemi tamamen entegre olacak. Rozetler kullanıcı profilinde ve leaderboard’da görünecek. Bildirim sistemi uygulama içi bildirim merkezi ve push notification altyapısıyla çalışacak. Push için token yönetimi yapılacak ve Median.co uyumlu olacak.
+
+Gelir modeli eksiksiz entegre edilecek. Free ve Premium abonelikler olacak (aylık/yıllık). Dakika veya kredi satın alma sistemi olacak. Görüntülü sohbet ve AI eğitmen kullanımı dakika düşürecek. Ödeme sistemi Stripe veya eşdeğeri ile canlıya uygun olacak, webhook ile abonelik ve bakiye güncellemeleri otomatik yapılacak.
+
+AI eğitmen modülü gerçek çalışır olacak. Kullanıcıyla seviye uyumlu yazılı pratik yapacak, hataları düzeltecek, kelime ve grammar önerileri sunacak. Konuşma değerlendirmesi ve speaking score üretilecek ve kullanıcı profiline kaydedilecek. AI anahtarları environment değişkenlerinden yönetilecek.
+
+Admin panel eksiksiz olacak. Kullanıcı yönetimi, ban/mute, içerik ve test yönetimi, şikayet ve rapor inceleme, gelir ve abonelik raporları, kullanım istatistikleri ve admin işlem logları çalışır durumda olacak.
+
+Uygulama KVKK/GDPR uyumlu olacak. Privacy Policy ve Terms of Service uygulama içinde erişilebilir olacak. Kullanıcı raporlama, engelleme ve güvenli topluluk kuralları uygulanacak. 18+ uyarısı gösterilecek. Rate limiting, input validation, XSS/CSRF önlemleri aktif olacak.
+
+Median.co ile mobil uygulamaya dönüştürülebilmesi için kamera, mikrofon ve bildirim izinleri yalnızca gerektiği anda istenecek. Gereksiz hiçbir izin olmayacak. Mobil web performansı yüksek olacak.
+
+Bana çıktı olarak tam bir repository üret. Klasör yapısını, tüm dosyaları ve dosya içeriklerini eksiksiz ver. Frontend ve backend çalışır halde olacak. .env.example dosyaları, seed verileri (örnek içerikler, testler, rozet kuralları), Docker dosyaları ve Nginx konfigürasyonu dahil olacak. Kod temiz, okunabilir, sürdürülebilir ve production kalitesinde olacak.

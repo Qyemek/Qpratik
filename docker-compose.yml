@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: qpratik-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: qpratik
+      POSTGRES_USER: qpratik_user
+      POSTGRES_PASSWORD: qpratik_password_2024
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - qpratik-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: qpratik-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - qpratik-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: qpratik-backend
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://qpratik_user:qpratik_password_2024@postgres:5432/qpratik?schema=public
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./backend/uploads:/app/uploads
+    networks:
+      - qpratik-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: qpratik-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - qpratik-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: qpratik-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - qpratik-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  qpratik-network:
+    driver: bridge
