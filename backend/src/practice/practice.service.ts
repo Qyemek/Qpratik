@@ -60,6 +60,7 @@ export class PracticeService {
     if (!session) throw new Error('Session not found');
 
     const duration = Math.floor((new Date().getTime() - session.startedAt.getTime()) / 1000 / 60);
+    const type = session.type;
 
     await this.prisma.practiceSession.update({
       where: { id: sessionId },

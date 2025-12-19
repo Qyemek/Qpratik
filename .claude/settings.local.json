@@ -5,7 +5,28 @@
       "Bash(copy .env.example .env)",
       "Bash(docker-compose up:*)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git config:*)",
+      "Bash(chmod:*)",
+      "Bash(npm install:*)",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(railway login:*)",
+      "Bash(docker:*)",
+      "Bash(npx prisma generate:*)",
+      "Bash(npx prisma migrate:*)",
+      "Bash(net start:*)",
+      "Bash(sc query:*)",
+      "Bash(findstr:*)",
+      "Bash(wmic service:*)",
+      "Bash(npx prisma db seed:*)",
+      "Bash(npm run start:dev:*)",
+      "Bash(npm run dev:*)",
+      "Bash(timeout /t 5)",
+      "Bash(if exist node_modules rmdir /s /q node_modules)",
+      "Bash(set NODE_OPTIONS=--max-old-space-size=4096)"
     ]
   }
 }
