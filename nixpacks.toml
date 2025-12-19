@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["nodejs-18_x", "openssl"]
+nixPkgs = ["nodejs-18_x", "openssl_3"]
 
 [phases.install]
 cmds = [
@@ -15,4 +15,4 @@ cmds = [
 ]
 
 [start]
-cmd = "cd backend && npx prisma migrate deploy && npm run start:prod"
+cmd = "cd backend && npx prisma migrate deploy && npx prisma db seed && npm run start:prod"
