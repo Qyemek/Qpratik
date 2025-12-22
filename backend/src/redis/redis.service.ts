@@ -9,20 +9,38 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   constructor(private configService: ConfigService) {}
 
   async onModuleInit() {
-    this.client = createClient({
-      socket: {
-        host: this.configService.get('REDIS_HOST') || 'localhost',
-        port: parseInt(this.configService.get('REDIS_PORT') || '6379'),
-      },
-    });
+    try {
+      const redisHost = this.configService.get('REDIS_HOST');
+      const redisPassword = this.configService.get('REDIS_PASSWORD');
 
-    this.client.on('error', (err) => console.error('Redis Client Error', err));
-    await this.client.connect();
-    console.log('✅ Redis connected');
+      if (!redisHost) {
+        console.log('⚠️  Redis not configured, skipping connection');
+        return;
+      }
+
+      this.client = createClient({
+        socket: {
+          host: redisHost,
+          port: parseInt(this.configService.get('REDIS_PORT') || '6379'),
+          connectTimeout: 5000,
+        },
+        password: redisPassword || undefined,
+      });
+
+      this.client.on('error', (err) => console.error('Redis Client Error', err));
+
+      await this.client.connect();
+      console.log('✅ Redis connected');
+    } catch (error) {
+      console.error('⚠️  Failed to connect to Redis, continuing without cache:', error.message);
+      this.client = null;
+    }
   }
 
   async onModuleDestroy() {
-    await this.client.quit();
+    if (this.client) {
+      await this.client.quit();
+    }
   }
 
   getClient(): RedisClientType {
@@ -30,10 +48,12 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   }
 
   async get(key: string): Promise<string | null> {
+    if (!this.client) return null;
     return await this.client.get(key);
   }
 
   async set(key: string, value: string, ttl?: number): Promise<void> {
+    if (!this.client) return;
     if (ttl) {
       await this.client.setEx(key, ttl, value);
     } else {
@@ -42,6 +62,7 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   }
 
   async del(key: string): Promise<void> {
+    if (!this.client) return;
     await this.client.del(key);
   }
 
