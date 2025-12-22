@@ -14,6 +14,9 @@ RUN npm run build
 
 FROM node:18-slim
 
+# Install OpenSSL 3.0
+RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 COPY --from=builder /app/node_modules ./node_modules
