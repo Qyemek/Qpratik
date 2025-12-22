@@ -9,17 +9,6 @@ import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { EmailModule } from '../email/email.module';
 
-const createProviders = (config: ConfigService) => {
-  const providers = [AuthService, JwtStrategy, JwtRefreshStrategy];
-
-  // Only add GoogleStrategy if credentials are configured
-  if (config.get('GOOGLE_CLIENT_ID') && config.get('GOOGLE_CLIENT_SECRET')) {
-    providers.push(GoogleStrategy);
-  }
-
-  return providers;
-};
-
 @Module({
   imports: [
     PassportModule,
