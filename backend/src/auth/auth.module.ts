@@ -9,6 +9,17 @@ import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { EmailModule } from '../email/email.module';
 
+const createProviders = (config: ConfigService) => {
+  const providers = [AuthService, JwtStrategy, JwtRefreshStrategy];
+
+  // Only add GoogleStrategy if credentials are configured
+  if (config.get('GOOGLE_CLIENT_ID') && config.get('GOOGLE_CLIENT_SECRET')) {
+    providers.push(GoogleStrategy);
+  }
+
+  return providers;
+};
+
 @Module({
   imports: [
     PassportModule,
@@ -25,7 +36,21 @@ import { EmailModule } from '../email/email.module';
     EmailModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, JwtRefreshStrategy, GoogleStrategy],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    JwtRefreshStrategy,
+    {
+      provide: GoogleStrategy,
+      useFactory: (config: ConfigService) => {
+        if (config.get('GOOGLE_CLIENT_ID') && config.get('GOOGLE_CLIENT_SECRET')) {
+          return new GoogleStrategy(config);
+        }
+        return null;
+      },
+      inject: [ConfigService],
+    },
+  ],
   exports: [AuthService],
 })
 export class AuthModule {}
